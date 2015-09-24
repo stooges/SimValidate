@@ -56,14 +56,8 @@
  		</div>
 
  （2）JS代码
-a.创建校验对象
-		var validate1 = $("#inputs_elements").SimValidate({  //**** 该函数参数可选
-				autoTest:true,	//是否自动校验(onblur事件)，默认为true
-				shortTest:true,	//是否短路校验，默认为true
-					messageStyle:"color:red;padding-left:3px;padding-right:3px",//显示消息的样式，些处为默认值
-				});
 
-
+		a.创建校验对象
 			var validate1 = $("#inputs_elements").SimValidate({  //**** 该函数参数可选
 				autoTest:true,	//是否自动校验(onblur事件)，默认为true
 				shortTest:true,	//是否短路校验，默认为true
