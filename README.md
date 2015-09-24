@@ -56,22 +56,22 @@
  		</div>
 
  （2）JS代码
-		 		a.创建校验对象
-		 			var validate1 = $("#inputs_elements").SimValidate({  //**** 该函数参数可选
-		   						autoTest:true,	//是否自动校验(onblur事件)，默认为true
-		   						shortTest:true,	//是否短路校验，默认为true
-		 							messageStyle:"color:red;padding-left:3px;padding-right:3px",//显示消息的样式，些处为默认值
-		 						});
-		 		b. 自定义校验器
-		 			注意：校验器名必须为合法js标识符（不能包括中划线）
-		 			validate1.extend({
-		 				validator_name : function(value, param, $element){ 
-		 					//value: 待校验对象的输入值;
-		 					//param: 校验类型的取值（如 max="20" 中的值 20）;
-		 					//$element 待校验对象的Jquery对象.
-		 					...
-		 					return true; // or false
-		 				}
-		 			})
-		 		c. 手动校验
-		 			var result = validate1.validate(); 当所有元素检验都通过时，返回true，否则返回false
+		a.创建校验对象
+	var validate1 = $("#inputs_elements").SimValidate({  //**** 该函数参数可选
+				autoTest:true,	//是否自动校验(onblur事件)，默认为true
+				shortTest:true,	//是否短路校验，默认为true
+					messageStyle:"color:red;padding-left:3px;padding-right:3px",//显示消息的样式，些处为默认值
+				});
+b. 自定义校验器
+	注意：校验器名必须为合法js标识符（不能包括中划线）
+	validate1.extend({
+		validator_name : function(value, param, $element){ 
+			//value: 待校验对象的输入值;
+			//param: 校验类型的取值（如 max="20" 中的值 20）;
+			//$element 待校验对象的Jquery对象.
+			...
+			return true; // or false
+		}
+	})
+c. 手动校验
+	var result = validate1.validate(); 当所有元素检验都通过时，返回true，否则返回false
