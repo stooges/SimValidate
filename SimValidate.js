@@ -223,7 +223,6 @@
 	 * 内置验证器
 	 */
 	SimValidate.prototype.validators = {
-
 		equalTo: function(value,param,point,obj){//值是否相等
 			if(value==null || value.length==0) return true;
 			if(obj.settings['autoTest']) {
@@ -233,7 +232,7 @@
 					obj.testElement(point);
 				});
 			}
-			if($("[test-id='"+param+"']").val()==value)
+			if(obj.$eles.find("[test-id='"+param+"']").val()==value)
 				return true;
 			else
 				return false;
