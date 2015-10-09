@@ -68,8 +68,12 @@
 	 * 返回校验对象
  	 * @param {Object} options
 	 */
+
+	var simObject; //SimValidate类的对象，供子对象中的函数调用
+
 	$.fn.SimValidate=function(options){
 		var simVali=new SimValidate(this,options);
+		simObject=simVali;
 		return simVali;
 	};
 	
@@ -92,7 +96,6 @@
 			autoTest:true,	//自动校验(onblur校验)
 		};
 		this.settings= $.extend({},this.defaults, options);
-		this.validators=default_validators;
 		eles.find("[message-for]").attr("hidden",true);//隐藏所有消息
 		eles.find("[message-for]").attr("style",this.settings["messageStyle"]);
 		if(this.settings['autoTest']){
@@ -121,7 +124,7 @@
 						$eles.find("[message-for='"+test_id+"']").attr("hidden",true);
 					});
 					$(eles_path).on("blur","[test-id='"+test_id+"']",function(){
-						simValidate.testElement($element);
+						simValidate.testElement($element,test_id);
 					});
 					
 				}else{ // 如果是 group test
@@ -134,7 +137,7 @@
 						});
 						$(eles_path).on("click","[test-id='"+test_id+"']>[test-point]",function(){
 							$eles.find("[message-for='"+test_id+"']").attr("hidden",true);
-							simValidate.testElement($element);
+							simValidate.testElement($element,test_id);
 						});
 				}
 			});
@@ -220,10 +223,19 @@
 	
 	/**
 	 * 内置验证器
+	 * simObject指当前的验证控件，可以在验证器中直接调用
 	 */
-	var default_validators = {
+	SimValidate.prototype.validators = {
 
 		equalTo: function(value,param,point){//值是否相等
+			if(value==null || value.length==0) return true;
+			if(simObject.settings['autoTest']) {
+				var test_id = point.attr("test-id");
+				$(simObject.eles_path).on("blur", "[test-id='" + param + "']", function () {
+					simObject.$eles.find("[message-for='" + test_id + "']").attr("hidden", true);
+					simObject.testElement(point);
+				});
+			}
 			if(point.siblings("[test-id='"+param+"']").val()==value)
 				return true;
 			else
