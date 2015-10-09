@@ -233,7 +233,7 @@
 					obj.testElement(point);
 				});
 			}
-			if(point.siblings("[test-id='"+param+"']").val()==value)
+			if($("[test-id='"+param+"']").val()==value)
 				return true;
 			else
 				return false;
