@@ -51,10 +51,11 @@
  * 		b. 自定义校验器
  * 			注意：校验器名必须为合法js标识符（不能包括中划线）
  * 			validate1.extend({
- * 				validator_name : function(value, param, $element){ 
+ * 				validator_name : function(value, param, $element, obj){
  * 					//value: 待校验对象的输入值;
  * 					//param: 校验类型的取值（如 max="20" 中的值 20）;
- * 					//$element 待校验对象的Jquery对象.
+ * 					//$element: 待校验对象的Jquery对象;
+ * 					//obj: 当前的SimValidate对象.
  * 					...
  * 					return true; // or false
  * 				}
@@ -68,9 +69,6 @@
 	 * 返回校验对象
  	 * @param {Object} options
 	 */
-
-	var simObject; //SimValidate类的对象，供子对象中的函数调用
-
 	$.fn.SimValidate=function(options){
 		var simVali=new SimValidate(this,options);
 		simObject=simVali;
@@ -176,7 +174,7 @@
 				
 				var validator=validators[key];
 				var value = $point.val();
-				if(!validator(value,param,$point)){//注入校验器参数：value 值，param 校验参数，$point待校验对象的jquery对象
+				if(!validator(value,param,$point,this)){//注入校验器参数：value值，param校验参数，$point待校验对象，this当前SimValidate对象
 					var test_id=$point.attr("test-id");
 					if($eles.find("[message-for='"+test_id+"']").size() > 1)
 						$eles.find("[message-for='"+test_id+"'][test-type='"+key+"']").attr("hidden",false);
@@ -223,17 +221,16 @@
 	
 	/**
 	 * 内置验证器
-	 * simObject指当前的验证控件，可以在验证器中直接调用
 	 */
 	SimValidate.prototype.validators = {
 
-		equalTo: function(value,param,point){//值是否相等
+		equalTo: function(value,param,point,obj){//值是否相等
 			if(value==null || value.length==0) return true;
-			if(simObject.settings['autoTest']) {
+			if(obj.settings['autoTest']) {
 				var test_id = point.attr("test-id");
-				$(simObject.eles_path).on("blur", "[test-id='" + param + "']", function () {
-					simObject.$eles.find("[message-for='" + test_id + "']").attr("hidden", true);
-					simObject.testElement(point);
+				$(obj.eles_path).on("blur", "[test-id='" + param + "']", function () {
+					obj.$eles.find("[message-for='" + test_id + "']").attr("hidden", true);
+					obj.testElement(point);
 				});
 			}
 			if(point.siblings("[test-id='"+param+"']").val()==value)
