@@ -66,10 +66,11 @@
 		b. 自定义校验器
 			注意：校验器名必须为合法js标识符（不能包括中划线）
 			validate1.extend({
-				validator_name : function(value, param, $element){ 
+				validator_name : function(value, param, $element, obj){ 
 					//value: 待校验对象的输入值;
 					//param: 校验类型的取值（如 max="20" 中的值 20）;
-					//$element 待校验对象的Jquery对象.
+					//$element: 待校验对象的Jquery对象;
+					//obj: 当前的SimValidate对象。
 					...
 					return true; // or false
 				}
