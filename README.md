@@ -26,7 +26,7 @@
  
  （4）test-point：待校验控件组中的校验点，即组中的单个控件；
  
- （5）required, groupRequired, number, max, min, minlength, email, idcard, mobile，以及自定义校验器的名字，用于标识待校验控件的校验类型；
+ （5）required, groupRequired, number, max, min, minlength, email, idcard, mobile, equalTo，以及自定义校验器的名字，用于标识待校验控件的校验类型；
  
  3. 使用方法
 	
