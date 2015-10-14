@@ -89,13 +89,14 @@
 		this.eles_path=this.getPath(eles);
 		//默认值
 		this.defaults= {
-			messageStyle:"color:red;padding-left:3px;padding-right:3px",
+			messageStyle:"color:red;padding-left:3px;padding-right:3px;width:auto;",
 			shortTest:true,	//短路校验
 			autoTest:true,	//自动校验(onblur校验)
 		};
 		this.settings= $.extend({},this.defaults, options);
-		eles.find("[message-for]").attr("hidden",true);//隐藏所有消息
 		eles.find("[message-for]").attr("style",this.settings["messageStyle"]);
+		eles.find("[message-for]").hide();//隐藏所有消息
+
 		if(this.settings['autoTest']){
 			this.autoValidate();
 		}
@@ -119,7 +120,7 @@
 
 				if($element.find("[test-point]").size()==0){
 					$(eles_path).on("focus","[test-id='"+test_id+"']",function(){
-						$eles.find("[message-for='"+test_id+"']").attr("hidden",true);
+						$eles.find("[message-for='"+test_id+"']").hide();
 					});
 					$(eles_path).on("blur","[test-id='"+test_id+"']",function(){
 						simValidate.testElement($element,test_id);
@@ -127,14 +128,14 @@
 					
 				}else{ // 如果是 group test
 						$(eles_path).on("focus","[test-id='"+test_id+"']>[test-point]",function(){
-							$eles.find("[message-for='"+test_id+"']").attr("hidden",true);
+							$eles.find("[message-for='"+test_id+"']").hide();
 						});
 						$(eles_path).on("blur","[test-id='"+test_id+"']>[test-point]",function(){
-							$eles.find("[message-for='"+test_id+"']").attr("hidden",true);
+							$eles.find("[message-for='"+test_id+"']").hide();
 							simValidate.testElement($element);
 						});
 						$(eles_path).on("click","[test-id='"+test_id+"']>[test-point]",function(){
-							$eles.find("[message-for='"+test_id+"']").attr("hidden",true);
+							$eles.find("[message-for='"+test_id+"']").hide();
 							simValidate.testElement($element,test_id);
 						});
 				}
@@ -146,7 +147,7 @@
 		 * 手动校验
 		 */
 		validate: function(){
-			this.$eles.find("[message-for]").attr("hidden",true);//隐藏所有消息
+			this.$eles.find("[message-for]").hide();
 			var total_valid = true;
 			var simValidate = this;
 			//校验每个待校验元素
@@ -177,9 +178,9 @@
 				if(!validator(value,param,$point,this)){//注入校验器参数：value值，param校验参数，$point待校验对象，this当前SimValidate对象
 					var test_id=$point.attr("test-id");
 					if($eles.find("[message-for='"+test_id+"']").size() > 1)
-						$eles.find("[message-for='"+test_id+"'][test-type='"+key+"']").attr("hidden",false);
+						$eles.find("[message-for='"+test_id+"'][test-type='"+key+"']").show();
 					else
-						$eles.find("[message-for='"+test_id+"']").attr("hidden",false);
+						$eles.find("[message-for='"+test_id+"']").show();
 					single_valid = false;
 				}
 			}
@@ -228,7 +229,7 @@
 			if(obj.settings['autoTest']) {
 				var test_id = point.attr("test-id");
 				$(obj.eles_path).on("blur", "[test-id='" + param + "']", function () {
-					obj.$eles.find("[message-for='" + test_id + "']").attr("hidden", true);
+					obj.$eles.find("[message-for='" + test_id + "']").hide();
 					obj.testElement(point);
 				});
 			}
