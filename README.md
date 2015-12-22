@@ -53,6 +53,14 @@
  				</div>
  				<span message-for="group1" test-type="groupRequired">必须选择至少一个</span>
  			</div>
+ 			<div><!-- 一组值不能重复 -->
+  		        <input type="text" test-id="value1" distinct="value">
+  		        <span message-for="value1" test-type="distinct">数值重复</span>
+  		        <input type="text" test-id="value2" distinct="value">
+  		        <span message-for="value2" test-type="distinct">数值重复</span>
+  		        <input type="text" test-id="value3" distinct="value">
+  		        <span message-for="value3" test-type="distinct">数值重复</span>
+  		    </div>
  		</div>
 
  （2）JS代码
