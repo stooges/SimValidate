@@ -16,7 +16,7 @@
  * （2）message-for：校验信息隶属于哪个被校验控件，基值为被校验控件的test-id；
  * （3）test-type：校验信息的类型，与message-for同时使用；
  * （4）test-point：待校验控件组中的校验点，即组中的单个控件；
- * （5）required, groupRequired, number, max, min, minlength, email, idcard, mobile，eaualTo以及自定义校验器的名字，用于标识待校验控件的校验类型；
+ * （5）required, groupRequired, number, max, min, minlength, email, idcard, mobile，equalTo以及自定义校验器的名字，用于标识待校验控件的校验类型；
  * 3. 使用方法
  * （1）html代码
  * 		<div id="inputs_elements">
